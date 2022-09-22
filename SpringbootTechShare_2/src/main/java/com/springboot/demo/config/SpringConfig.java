@@ -12,4 +12,5 @@ public class SpringConfig {
 	public Employee getMary() {
 		return new Employee("Mary", "engineer", 50000);
 	}
+	
 }

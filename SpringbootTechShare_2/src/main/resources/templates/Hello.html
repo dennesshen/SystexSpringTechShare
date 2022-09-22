@@ -8,7 +8,32 @@
     <title>Hello Spring MVC</title>
 </head>
 <body>
-   <h1>Hello Spring MVC</h1>
-   <h1 th:text='${ hello }'></h1>
+    <div class="container my-2">
+
+	   <h1>Hello Spring MVC</h1>
+	   <h1 th:text='${ hello }'></h1>
+	   
+	   <table border="1" class="table table-striped table-responsive-md">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>姓名</th>
+                    <th>職務</th>
+                    <th>薪資</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="employee : ${ Employees }">
+                    <td></td>
+                    <td th:text="${employee.name}"></td>
+                    <td th:text="${employee.position}"></td>
+                    <td th:text="${employee.salary}"></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <h1 th:text='${ employee }'></h1>
+	       
+    </div>	
 </body>
 </html>
