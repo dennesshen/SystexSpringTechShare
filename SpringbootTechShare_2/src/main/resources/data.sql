@@ -1,0 +1,7 @@
+INSERT INTO EMPLOYEE VALUES (1, 'Mary', 'manager', 85000);    
+INSERT INTO EMPLOYEE VALUES (2, 'Linda', 'sale', 60000);    
+INSERT INTO EMPLOYEE VALUES (3, 'Christine', 'engineer', 55000);   
+INSERT INTO EMPLOYEE VALUES (4, 'John', 'boss', 100000);    
+INSERT INTO EMPLOYEE VALUES (5, 'Mar', 'sale', 64000);    
+INSERT INTO EMPLOYEE VALUES (6, 'Ella', 'engineer', 51000);
+

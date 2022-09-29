@@ -19,4 +19,9 @@ public class EmployeeRepository {
 		employees.add(new Employee("Bob", "sell", 44000));
 		employees.add(new Employee("May", "engineer", 54000));
 	}
+
+	public List<Employee> insert(List<Employee> data) {
+		employees.addAll(data);
+		return employees;
+	}
 }
