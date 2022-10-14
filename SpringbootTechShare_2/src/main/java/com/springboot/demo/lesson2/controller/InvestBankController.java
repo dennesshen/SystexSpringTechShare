@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.springboot.demo.lesson2.dto.DtoOfBank;
 import com.springboot.demo.lesson2.entity.InvestBankEntity;
 import com.springboot.demo.lesson2.repository.InvestBankRepository;
+import com.springboot.demo.lesson2.service.BankAndManagerService;
 
 @RestController
 @RequestMapping("/investbank")
@@ -23,7 +24,11 @@ public class InvestBankController {
 	
 	@Autowired
 	private InvestBankRepository bankRepository;
+	
+	@Autowired
+	private BankAndManagerService service;
 
+	
 	@GetMapping("/get")
 	public List<InvestBankEntity> getAllBank() {
 		return bankRepository.findAll().stream()
@@ -43,27 +48,21 @@ public class InvestBankController {
 	
 	@PutMapping("/insert")
 	public boolean insert(@RequestBody DtoOfBank receiveData) {
-		InvestBankEntity entity = new InvestBankEntity();
-		entity.setName(receiveData.getName());
-		bankRepository.saveAndFlush(entity);
+		
+		service.insert(receiveData);
+		
 		return true;
 	}
 	
 	@PutMapping("/update")
 	public boolean update(@RequestBody DtoOfBank receiveData) {
-		InvestBankEntity entity = bankRepository.findById(receiveData.getId()).get();
-		entity.setName(receiveData.getName());
 		
-		bankRepository.saveAndFlush(entity);
+		service.update(receiveData);
 		return true;
 	}
 	
 	@DeleteMapping("/delete")
 	public boolean delete(@RequestBody DtoOfBank receiveData) {
-//		InvestBankEntity entity = new InvestBankEntity();
-//		entity.setId(receiveData.getId());
-//		entity.setName(receiveData.getName());
-//		bankRepository.delete(entity);
 		
 		bankRepository.deleteById(receiveData.getId());
 		return true;
