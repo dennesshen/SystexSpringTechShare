@@ -11,5 +11,7 @@ public class DtoOfManager {
 	private String name;
 	
 	private Long balance;
+	
+	
 		
 }
