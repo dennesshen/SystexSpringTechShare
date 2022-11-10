@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.springboot.demo.lesson2.dto.PersonInfoRecieveData;
 import com.springboot.demo.lesson2.entity.FundManagerEntity;
@@ -68,6 +69,24 @@ public class FundmanagerService {
 		
 		managerRepository.saveAndFlush(manager);
 		return manager.getStockEntities();
+	}
+
+	@Transactional
+	public boolean demoTransactional() {
+		
+		FundManagerEntity manager = 
+				managerRepository.findById(1l).get();
+		
+		manager.getPersonInfoEntity().setIdNumber("T987654321");
+		managerRepository.saveAndFlush(manager);
+		
+		if (manager.getId() == 1l) {
+			throw new RuntimeException("Transaction Demo Error");
+		}
+		
+		addStock(1l, "2330.TW");
+		
+		return true;
 	}
 	
 	

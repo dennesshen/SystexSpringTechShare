@@ -36,4 +36,11 @@ public class FundManagerController {
 		return managerService.addStock(id, symbol);	
 	}
 	
+	
+	@PutMapping("/transactional_demo")
+	public boolean demoTransaction() {
+
+		return managerService.demoTransactional();
+	}
+	
 }
