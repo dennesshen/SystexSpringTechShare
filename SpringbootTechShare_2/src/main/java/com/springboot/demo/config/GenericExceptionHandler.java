@@ -12,6 +12,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.springboot.demo.util.ParmeterException;
+
 @ControllerAdvice(basePackages = {"com.springboot.demo.lesson2"})
 public class GenericExceptionHandler {
 	
@@ -31,6 +33,19 @@ public class GenericExceptionHandler {
 		
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(data);
 		
+	}
+	
+	@ExceptionHandler(value = ParmeterException.class)
+	public ResponseEntity<?> dealParameterException(ParmeterException ex) {
+		
+		
+		Map<String, String> data = new LinkedHashMap<>();
+		
+		data.put("data", null);
+		data.put("status", "400");
+		data.put("message", ex.getMessage());
+		
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(data);
 	}
 	
 	

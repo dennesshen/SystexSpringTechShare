@@ -16,6 +16,12 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.springboot.demo.util.DataSendModel.DtoPresentField;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -29,10 +35,12 @@ import lombok.Setter;
 @RequiredArgsConstructor
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 public class StockEntity {
 	
 	@Id
 	@NonNull
+	@DtoPresentField
 	private String symbol;
 	
 	@Column
@@ -41,7 +49,7 @@ public class StockEntity {
 	@Column
 	private BigDecimal nowPrice;
 	
-	
+	@JsonIgnore
 	@ManyToMany(mappedBy = "stockEntities")
 	private List<FundManagerEntity> fundManagerEntities;
 	

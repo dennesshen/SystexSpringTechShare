@@ -10,6 +10,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.springboot.demo.util.DataSendModel.DtoPresentField;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -26,6 +27,7 @@ public class PersonInfoEntity {
 	private Long id;
 	
 	@Column(name = "IDNUMBER")
+	@DtoPresentField
 	private String idNumber;
 	
 	@Column

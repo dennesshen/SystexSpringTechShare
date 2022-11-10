@@ -15,7 +15,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.springboot.demo.util.DataSendModel.DtoPresentField;
+import com.springboot.demo.util.DataSendModel.DtoPresentNextLevelData;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -26,16 +31,20 @@ import lombok.ToString;
 @Entity
 @Table(name = "FUNDMANAGER")
 @ToString(exclude = "investBankEntity")
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 public class FundManagerEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@DtoPresentField
 	private Long id;
 	
 	@Column(name = "manager_name")
+	@DtoPresentField
 	private String name;
 	
 	@Column
+	@DtoPresentField
 	private Long balance;
 	
 	@Column(insertable = false, updatable = false)
@@ -44,11 +53,15 @@ public class FundManagerEntity {
 	
 	@ManyToOne
 	@JoinColumn(name = "investbank_id")
-	@JsonIgnore
+	//@JsonBackReference
 	private InvestBankEntity investBankEntity;
 	
+	@JsonIgnore
 	@OneToOne(mappedBy = "fundManagerEntity", cascade = CascadeType.ALL)
+	@DtoPresentNextLevelData(name = "personinfo")
 	private PersonInfoEntity personInfoEntity;
+	
+	
 	
 	@ManyToMany(cascade = {CascadeType.PERSIST,
 						   CascadeType.REFRESH,
@@ -58,6 +71,7 @@ public class FundManagerEntity {
 		joinColumns = @JoinColumn(name = "fundmanager_id"),
 		inverseJoinColumns = @JoinColumn(name = "stock_symbol")
 	)
+	@DtoPresentNextLevelData(name = "stocks")
 	private List<StockEntity> stockEntities;
 	
 	

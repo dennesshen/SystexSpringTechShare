@@ -4,8 +4,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,6 +18,8 @@ import com.springboot.demo.lesson2.dto.DtoOfBank;
 import com.springboot.demo.lesson2.entity.InvestBankEntity;
 import com.springboot.demo.lesson2.repository.InvestBankRepository;
 import com.springboot.demo.lesson2.service.BankAndManagerService;
+import com.springboot.demo.util.DataSendModel.DataSendModel;
+import com.springboot.demo.util.DataSendModel.DataSendModelWrapper;
 import com.springboot.demo.util.validationUtil.CreateValid;
 import com.springboot.demo.util.validationUtil.UpdateValid;
 
@@ -35,9 +35,10 @@ public class InvestBankController {
 
 	
 	@GetMapping("/get")
-	public List<InvestBankEntity> getAllBank() {
+	public List<DataSendModel> getAllBank() {
 		return bankRepository.findAll().stream()
 									   .sorted(Comparator.comparing(InvestBankEntity::getId))
+									   .map(b -> DataSendModelWrapper.wrapper(b, "employee"))
 									   .collect(Collectors.toList());
 	}
 	
